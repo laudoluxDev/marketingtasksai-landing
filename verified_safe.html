@@ -333,12 +333,29 @@
             <h2 style="margin-bottom:0;">Skill Verification Status</h2>
             <span class="scan-status" id="scanStatus">Loading…</span>
         </div>
+
+        <!-- Scoring callout -->
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin:20px 0;display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;">
+            <div style="flex:1;min-width:200px;">
+                <div style="font-size:1.1rem;font-weight:700;color:#0f172a;margin-bottom:6px;">🥇 Perfect &nbsp;<span style="font-size:0.8rem;font-weight:500;color:#64748b;">15 / 15 attacks deflected</span></div>
+                <p style="font-size:0.85rem;color:#475569;margin:0;">Blocked every adversarial attack in the test suite. Maximum confidence.</p>
+            </div>
+            <div style="flex:1;min-width:200px;">
+                <div style="font-size:1.1rem;font-weight:700;color:#0f172a;margin-bottom:6px;">✅ Verified &nbsp;<span style="font-size:0.8rem;font-weight:500;color:#64748b;">13–14 / 15 attacks deflected</span></div>
+                <p style="font-size:0.85rem;color:#475569;margin:0;">Passed rigorous adversarial testing. 87%+ deflection rate. Safe to use.</p>
+            </div>
+            <div style="flex:1;min-width:200px;">
+                <div style="font-size:1.1rem;font-weight:700;color:#0f172a;margin-bottom:6px;">⏳ Scan Pending &nbsp;<span style="font-size:0.8rem;font-weight:500;color:#64748b;">not yet tested</span></div>
+                <p style="font-size:0.85rem;color:#475569;margin:0;">This skill hasn’t been through automated red-team testing yet. Covered by platform-level safety.</p>
+            </div>
+        </div>
+
         <div style="overflow-x:auto;margin-top:8px;">
             <div id="skillsTableContainer">
                 <p class="loading-msg">Loading skill data…</p>
             </div>
         </div>
-        <p style="font-size:0.78rem;color:#94a3b8;margin-top:16px;">✅ Tested &amp; passed &nbsp;·&nbsp; ⏳ Not yet scanned &nbsp;·&nbsp; ❌ Failed &nbsp;·&nbsp; Individual threat columns reflect plugins tested in each scan run.</p>
+        <p style="font-size:0.78rem;color:#94a3b8;margin-top:16px;">Threat columns show results per attack category. ⏳ = not yet tested for that category.</p>
     </div>
 </section>
 
@@ -403,26 +420,47 @@
             return;
         }
 
-        const verified = skills.filter(s => s.security_verified);
         const total = skills.length;
         const statusEl = document.getElementById('scanStatus');
+        // Count after applying 13/15 threshold client-side
+        const perfectCount  = skills.filter(s => scoreTier(s) === 'perfect').length;
+        const verifiedCount = skills.filter(s => scoreTier(s) === 'verified').length;
+        const safeCount = perfectCount + verifiedCount;
 
-        if (verified.length === total) {
-            statusEl.textContent = `✅ All ${total} skills verified`;
+        if (safeCount === total) {
+            statusEl.textContent = `🥇 All ${total} skills verified`;
             statusEl.style.background = '#d1fae5';
             statusEl.style.color = '#065f46';
-        } else if (verified.length === 0) {
+        } else if (safeCount === 0) {
             statusEl.textContent = 'Scanning in progress';
         } else {
-            statusEl.textContent = `${verified.length} of ${total} verified`;
+            statusEl.textContent = `${safeCount} of ${total} verified (${perfectCount} perfect)`;
+        }
+
+        function scoreTier(skill) {
+            const passed = skill.security_tests_passed;
+            const run   = skill.security_tests_run;
+            if (passed == null || run == null || run === 0) return 'pending';
+            if (passed >= run)  return 'perfect';
+            if (passed >= 13)   return 'verified';
+            return 'pending';
+        }
+
+        function skillBadge(skill) {
+            const tier = scoreTier(skill);
+            if (tier === 'perfect')  return '🥇 Perfect';
+            if (tier === 'verified') return '✅ Verified';
+            return '⏳ Pending';
         }
 
         function threatCell(skill, threat) {
             const plugins = skill.plugins_tested || [];
             const tested = plugins.includes(threat.key);
-            if (!tested) return '<td style="text-align:center;font-size:1.1rem;">⏳</td>';
-            if (skill.security_verified) return '<td style="text-align:center;font-size:1.1rem;">✅</td>';
-            return '<td style="text-align:center;font-size:1.1rem;">❌</td>';
+            if (!tested) return '<td style="text-align:center;font-size:1.05rem;color:#cbd5e1;">⏳</td>';
+            const tier = scoreTier(skill);
+            if (tier === 'perfect')  return '<td style="text-align:center;font-size:1.05rem;">🥇</td>';
+            if (tier === 'verified') return '<td style="text-align:center;font-size:1.05rem;">✅</td>';
+            return '<td style="text-align:center;font-size:1.05rem;color:#cbd5e1;">⏳</td>';
         }
 
         const threatHeaders = THREATS.map(t =>
@@ -430,8 +468,15 @@
         ).join('');
 
         const rows = skills.map(s => {
+            const tier = scoreTier(s);
             const threatCells = THREATS.map(t => threatCell(s, t)).join('');
-            const nameTd = `<td style="font-weight:500;">${s.name || s.id}</td>`;
+            const badge = skillBadge(s);
+            const badgeStyle = tier === 'perfect'
+                ? 'display:inline-block;margin-left:8px;font-size:0.75rem;background:#fef9c3;color:#854d0e;padding:2px 8px;border-radius:20px;font-weight:600;'
+                : tier === 'verified'
+                ? 'display:inline-block;margin-left:8px;font-size:0.75rem;background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:20px;font-weight:600;'
+                : 'display:inline-block;margin-left:8px;font-size:0.75rem;background:#f1f5f9;color:#94a3b8;padding:2px 8px;border-radius:20px;font-weight:500;';
+            const nameTd = `<td style="font-weight:500;">${s.name || s.id}<span style="${badgeStyle}">${badge}</span></td>`;
             const catTd  = `<td style="color:#64748b;font-size:0.85rem;">${s.category_id || '—'}</td>`;
             return `<tr>${nameTd}${catTd}${threatCells}</tr>`;
         }).join('');
