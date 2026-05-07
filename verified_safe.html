@@ -333,9 +333,12 @@
             <h2 style="margin-bottom:0;">Skill Verification Status</h2>
             <span class="scan-status" id="scanStatus">Loading…</span>
         </div>
-        <div id="skillsTableContainer">
-            <p class="loading-msg">Loading skill data…</p>
+        <div style="overflow-x:auto;margin-top:8px;">
+            <div id="skillsTableContainer">
+                <p class="loading-msg">Loading skill data…</p>
+            </div>
         </div>
+        <p style="font-size:0.78rem;color:#94a3b8;margin-top:16px;">✅ Tested &amp; passed &nbsp;·&nbsp; ⏳ Not yet scanned &nbsp;·&nbsp; ❌ Failed &nbsp;·&nbsp; Individual threat columns reflect plugins tested in each scan run.</p>
     </div>
 </section>
 
@@ -380,55 +383,76 @@
     const VERTICAL = 'marketing';
     const API_BASE = 'https://api.lawtasksai.com';
 
+    // Threat columns: { key: promptfoo plugin name, icon, label }
+    const THREATS = [
+        { key: 'prompt-injection',   icon: '💉', label: 'Injection' },
+        { key: 'contracts',          icon: '✍️',  label: 'Commitments' },
+        { key: 'excessive-agency',   icon: '🚀', label: 'Agency' },
+        { key: 'prompt-extraction',  icon: '🔓', label: 'Extraction' },
+        { key: 'harmful',            icon: '⚠️', label: 'Harmful' },
+        { key: 'exfiltration',       icon: '📡', label: 'Exfiltration' },
+        { key: 'pii',                icon: '🔒', label: 'PII' },
+        { key: 'bias',               icon: '⚖️', label: 'Bias' },
+    ];
+
     fetch(`${API_BASE}/v1/skills?vertical=${VERTICAL}&limit=500`)
-        .then(r => r.json())
-        .then(skills => {
-            if (!skills || !skills.length) {
-                document.getElementById('skillsTableContainer').innerHTML = '<p class="loading-msg">No skills found.</p>';
-                return;
-            }
-            const verified = skills.filter(s => s.security_verified);
-            const total = skills.length;
-            const statusEl = document.getElementById('scanStatus');
+    .then(r => r.json())
+    .then(skills => {
+        if (!skills || !skills.length) {
+            document.getElementById('skillsTableContainer').innerHTML = '<p class="loading-msg">No skills found.</p>';
+            return;
+        }
 
-            if (verified.length === total) {
-                statusEl.textContent = `✅ All ${total} skills verified`;
-                statusEl.style.background = '#d1fae5';
-                statusEl.style.color = '#065f46';
-            } else if (verified.length === 0) {
-                statusEl.textContent = 'Security scanning in progress';
-            } else {
-                statusEl.textContent = `${verified.length} of ${total} skills verified`;
-            }
+        const verified = skills.filter(s => s.security_verified);
+        const total = skills.length;
+        const statusEl = document.getElementById('scanStatus');
 
-            const rows = skills.map(s => `
-                <tr>
-                    <td>${s.name || s.id}</td>
-                    <td>${s.category_id || '—'}</td>
-                    <td>${s.security_verified
-                        ? '<span class="badge-verified">✅ Verified</span>'
-                        : '<span class="badge-scanning">⏳ Scanning</span>'
-                    }</td>
-                </tr>
-            `).join('');
+        if (verified.length === total) {
+            statusEl.textContent = `✅ All ${total} skills verified`;
+            statusEl.style.background = '#d1fae5';
+            statusEl.style.color = '#065f46';
+        } else if (verified.length === 0) {
+            statusEl.textContent = 'Scanning in progress';
+        } else {
+            statusEl.textContent = `${verified.length} of ${total} verified`;
+        }
 
-            document.getElementById('skillsTableContainer').innerHTML = `
-                <table class="skills-table">
-                    <thead>
-                        <tr>
-                            <th>Skill</th>
-                            <th>Category</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>${rows}</tbody>
-                </table>
-            `;
-        })
-        .catch(() => {
-            document.getElementById('skillsTableContainer').innerHTML = '<p class="loading-msg">Unable to load skill data. Please try again shortly.</p>';
-            document.getElementById('scanStatus').textContent = 'Status unavailable';
-        });
+        function threatCell(skill, threat) {
+            const plugins = skill.plugins_tested || [];
+            const tested = plugins.includes(threat.key);
+            if (!tested) return '<td style="text-align:center;font-size:1.1rem;">⏳</td>';
+            if (skill.security_verified) return '<td style="text-align:center;font-size:1.1rem;">✅</td>';
+            return '<td style="text-align:center;font-size:1.1rem;">❌</td>';
+        }
+
+        const threatHeaders = THREATS.map(t =>
+            `<th style="text-align:center;min-width:72px;"><span title="${t.label}" style="font-size:1.1rem;">${t.icon}</span><br><span style="font-size:0.68rem;font-weight:600;color:#64748b;">${t.label}</span></th>`
+        ).join('');
+
+        const rows = skills.map(s => {
+            const threatCells = THREATS.map(t => threatCell(s, t)).join('');
+            const nameTd = `<td style="font-weight:500;">${s.name || s.id}</td>`;
+            const catTd  = `<td style="color:#64748b;font-size:0.85rem;">${s.category_id || '—'}</td>`;
+            return `<tr>${nameTd}${catTd}${threatCells}</tr>`;
+        }).join('');
+
+        document.getElementById('skillsTableContainer').innerHTML = `
+            <table class="skills-table" style="min-width:900px;">
+                <thead>
+                    <tr>
+                        <th>Skill</th>
+                        <th>Category</th>
+                        ${threatHeaders}
+                    </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+            </table>
+        `;
+    })
+    .catch(() => {
+        document.getElementById('skillsTableContainer').innerHTML = '<p class="loading-msg">Unable to load skill data. Please try again shortly.</p>';
+        document.getElementById('scanStatus').textContent = 'Status unavailable';
+    });
 })();
 </script>
 
