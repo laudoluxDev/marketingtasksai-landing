@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MCP Setup — MarketingTasksAI</title>
+  <title>Getting Started — MarketingTasksAI</title>
   <meta name="description" content="Connect MarketingTasksAI to Claude Desktop, Cursor, and Windsurf in minutes. Step-by-step MCP setup guide." />
   <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG8WVN0QR3"></script>
@@ -41,10 +41,27 @@
     .step a { color: #F59E0B; text-decoration: none; font-weight: 500; }
     .step a:hover { text-decoration: underline; }
 
-    /* Code block */
-    .code-block { background: #1a1a2e; border-radius: 10px; padding: 20px 24px; margin: 16px 0; font-family: 'Courier New', monospace; font-size: 0.92rem; color: #e5e7eb; overflow-x: auto; }
-    .code-block .comment { color: #6b7280; }
-    .code-block .cmd { color: #60a5fa; }
+    /* Code blocks — light text on dark background, clearly readable */
+    .code-block {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 16px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.92rem;
+      color: #f1f5f9;
+      overflow-x: auto;
+      line-height: 1.8;
+    }
+    .code-block .comment { color: #94a3b8; font-style: italic; }
+    .code-block .cmd     { color: #7dd3fc; }
+    .code-block .key     { color: #86efac; }
+    .code-block .val     { color: #fda4af; }
+    .code-block code     { color: #f1f5f9; }
+
+    /* Inline code */
+    .step code, p code { background: #f1f5f9; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.88em; font-family: 'Courier New', monospace; }
 
     /* Client cards */
     .client-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
@@ -65,11 +82,40 @@
     /* Divider */
     .divider { border: none; border-top: 1px solid #e5e7eb; margin: 40px 0; }
 
-    /* CTA */
+    /* CTA / support box */
     .cta-box { background: #F59E0B; border-radius: 12px; padding: 40px; text-align: center; color: white; margin-top: 48px; }
     .cta-box h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 10px; }
-    .cta-box p { opacity: 0.9; margin-bottom: 24px; }
+    .cta-box > p { opacity: 0.9; margin-bottom: 24px; }
     .cta-btn { display: inline-block; background: white; color: #F59E0B; padding: 14px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; }
+
+    /* Contact form */
+    .contact-form { display: flex; flex-direction: column; gap: 14px; margin-top: 20px; text-align: left; }
+    .contact-form label { font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 4px; display: block; }
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%; padding: 10px 14px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.15);
+      color: white; font-size: 0.95rem; font-family: inherit;
+    }
+    .contact-form select option { color: #1a1a2e; background: white; }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: rgba(255,255,255,0.45); }
+    .contact-form textarea { min-height: 110px; resize: vertical; }
+    .contact-form button {
+      padding: 12px 28px; border-radius: 8px; border: none;
+      background: white; color: #F59E0B;
+      font-weight: 700; font-size: 1rem; cursor: pointer;
+      align-self: flex-start; transition: opacity 0.15s;
+    }
+    .contact-form button:hover { opacity: 0.9; }
+    .contact-form button:disabled { opacity: 0.6; cursor: default; }
+    .form-success {
+      display: none; background: rgba(255,255,255,0.18);
+      border-radius: 8px; padding: 16px 20px;
+      color: white; font-weight: 600; margin-top: 4px;
+    }
 
     footer { background: #1a1a2e; color: #9ca3af; padding: 32px 0; text-align: center; font-size: 0.9rem; }
     footer a { color: #9ca3af; text-decoration: none; margin: 0 12px; }
@@ -83,8 +129,8 @@
 
 <div class="page-hero">
   <div class="container">
-    <h1>Connect to <span>Claude Desktop, Cursor & Windsurf</span></h1>
-    <p>Set up MarketingTasksAI as an MCP server in minutes. Your skills run in your MCP client — your data never touches our servers. It goes only to your AI provider, or nowhere if you use a local model.</p>
+    <h1>Connect to <span>Claude Desktop, Cursor &amp; Windsurf</span></h1>
+    <p>Set up MarketingTasksAI as an MCP server in minutes. Your tasks run locally — your data never touches our servers.</p>
   </div>
 </div>
 
@@ -100,15 +146,15 @@
       <div class="client-grid">
         <div class="client-card">
           <div class="name">Claude Desktop</div>
-          <div class="note">Anthropic — Mac & Windows</div>
+          <div class="note">Anthropic — Mac &amp; Windows</div>
         </div>
         <div class="client-card">
           <div class="name">Cursor</div>
-          <div class="note">AI code editor — Mac & Windows</div>
+          <div class="note">AI code editor — Mac &amp; Windows</div>
         </div>
         <div class="client-card">
           <div class="name">Windsurf</div>
-          <div class="note">Codeium — Mac & Windows</div>
+          <div class="note">Codeium — Mac &amp; Windows</div>
         </div>
       </div>
       <p>The installer auto-detects which clients you have installed and configures all of them at once.</p>
@@ -124,7 +170,7 @@
       </div>
       <ul>
         <li><strong>Python 3.8 or later</strong> — <a href="https://python.org/downloads" target="_blank">download at python.org</a> if needed</li>
-        <li><strong>A MarketingTasksAI license key</strong> — included in your purchase confirmation email, or <a href="/signup">get 5 free credits</a></li>
+        <li><strong>A MarketingTasksAI license key</strong> — you'll receive this by email after purchase, or <a href="/signup">sign up for 5 free credits</a> to get one now</li>
         <li><strong>At least one supported MCP client</strong> — Claude Desktop, Cursor, or Windsurf</li>
       </ul>
       <div class="alert">
@@ -139,8 +185,7 @@
         <div class="step-num">2</div>
         <h2>Download Your Package</h2>
       </div>
-      <p>After purchase, you'll receive an email with a personalized download link. Your license key is pre-configured in the package — no copying and pasting required.</p>
-      <p>Extract the zip file. You'll see two folders:</p>
+      <p>After purchase, you'll receive an email with a personalized download link. Extract the zip file — you'll see two folders:</p>
       <ul>
         <li><code>openclaw/</code> — for OpenClaw users</li>
         <li><code>mcp/</code> — for Claude Desktop, Cursor, and Windsurf</li>
@@ -157,7 +202,7 @@
       <div class="code-block">
         <span class="comment"># Navigate to the mcp folder</span><br/>
         <span class="cmd">cd ~/Downloads/marketing/mcp</span><br/><br/>
-        <span class="comment"># Run the installer</span><br/>
+        <span class="comment"># Run the installer — it will prompt you for your license key</span><br/>
         <span class="cmd">python3 install.py</span>
       </div>
       <p>The installer will:</p>
@@ -175,7 +220,7 @@
         <div class="step-num">4</div>
         <h2>Restart Your MCP Client</h2>
       </div>
-      <p>Fully quit and reopen Claude Desktop, Cursor, or Windsurf. MCP servers are loaded at startup — a restart is required.</p>
+      <p>Fully quit and reopen Claude Desktop, Cursor, or Windsurf. MCP servers load at startup — a restart is required.</p>
       <p>You should see <strong>marketing</strong> appear in your connected tools list.</p>
     </div>
 
@@ -183,16 +228,16 @@
     <div class="step">
       <div class="step-header">
         <div class="step-num">5</div>
-        <h2>Start Using Your Skills</h2>
+        <h2>Start Using Your Tasks</h2>
       </div>
-      <p>Just describe what you need in plain language — your AI will search for the right skill and ask you to confirm before running it:</p>
+      <p>Just describe what you need in plain language — your AI will find the right task and ask you to confirm before running it:</p>
       <div class="code-block">
         <span class="comment">You type:</span><br/>
         <span class="cmd">"I need help with Create a Google Ads campaign"</span><br/><br/>
-        <span class="comment">MarketingTasksAI finds matching skills, shows you options,</span><br/>
-        <span class="comment">then runs the one you choose.</span>
+        <span class="comment">MarketingTasksAI finds the right task, confirms with you,</span><br/>
+        <span class="comment">then runs it. Each task uses 1 credit.</span>
       </div>
-      <p>Each skill costs 1 credit. Your balance is checked any time with: <em>"Check my marketing credits"</em></p>
+      <p>Check your credit balance anytime: <em>"Check my marketing credits"</em></p>
     </div>
 
     <hr class="divider" />
@@ -215,17 +260,18 @@
       </div>
       <p>If you prefer to configure manually, add this to your MCP client's config file:</p>
       <div class="code-block">
-{<br/>
-&nbsp;&nbsp;"mcpServers": {<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;"marketing": {<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"command": "python3",<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"args": ["/path/to/mcp/server.py"],<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"env": {<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"MARKETINGTASKSAI_LICENSE_KEY": "your_license_key_here"<br/>
+<span class="key">{</span><br/>
+&nbsp;&nbsp;<span class="val">"mcpServers"</span>: {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="val">"marketing"</span>: {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="val">"command"</span>: <span class="cmd">"python3"</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="val">"args"</span>: [<span class="cmd">"/path/to/mcp/server.py"</span>],<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="val">"env"</span>: {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="val">"MARKETINGTASKSAI_LICENSE_KEY"</span>: <span class="cmd">"your-license-key-here"</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// paste the license key from your confirmation email</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
 &nbsp;&nbsp;}<br/>
-}
+<span class="key">}</span>
       </div>
       <p><strong>Config file locations:</strong></p>
       <ul>
@@ -235,11 +281,37 @@
       </ul>
     </div>
 
-    <!-- CTA -->
+    <!-- Support contact form -->
     <div class="cta-box">
       <h2>Need Help?</h2>
-      <p>Our support team typically responds within a few hours.</p>
-      <a href="mailto:hello@marketingtasksai.com" class="cta-btn">Email Support</a>
+      <p>Fill in the form and we'll get back to you within a few hours.</p>
+      <form class="contact-form" id="supportForm">
+        <div>
+          <label for="sf_name">Your name</label>
+          <input type="text" id="sf_name" name="name" placeholder="Jane Smith" required />
+        </div>
+        <div>
+          <label for="sf_email">Your email</label>
+          <input type="email" id="sf_email" name="email" placeholder="jane@example.com" required />
+        </div>
+        <div>
+          <label for="sf_topic">What do you need help with?</label>
+          <select id="sf_topic" name="topic">
+            <option value="">— Select a topic —</option>
+            <option>Installation / setup</option>
+            <option>License key or credits</option>
+            <option>Task not working as expected</option>
+            <option>Billing question</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="sf_msg">Message</label>
+          <textarea id="sf_msg" name="message" placeholder="Describe what's happening…" required></textarea>
+        </div>
+        <button type="submit" id="sf_btn">Send Message</button>
+        <div class="form-success" id="sf_success">✓ Message sent! We'll reply within a few hours.</div>
+      </form>
     </div>
 
   </div>
@@ -256,6 +328,48 @@
     <p style="margin-top:12px;">© 2026 MarketingTasksAI. All rights reserved.</p>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var form = document.getElementById('supportForm');
+    if (!form) return;
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var btn     = document.getElementById('sf_btn');
+      var success = document.getElementById('sf_success');
+      btn.disabled    = true;
+      btn.textContent = 'Sending…';
+      var data = new FormData(form);
+      try {
+        var payload = {
+          name:    document.getElementById('sf_name').value.trim(),
+          email:   document.getElementById('sf_email').value.trim(),
+          topic:   document.getElementById('sf_topic').value,
+          message: document.getElementById('sf_msg').value.trim(),
+          product: 'MarketingTasksAI'
+        };
+        var res = await fetch('https://api.lawtasksai.com/v1/support', {
+          method: 'POST',
+          body: JSON.stringify(payload),
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+        });
+        if (res.ok || res.status === 204) {
+          form.reset();
+          success.style.display = 'block';
+          btn.style.display = 'none';
+        } else {
+          btn.disabled    = false;
+          btn.textContent = 'Send Message';
+          alert('Something went wrong. Please email us directly at hello@marketingtasksai.com');
+        }
+      } catch (err) {
+        btn.disabled    = false;
+        btn.textContent = 'Send Message';
+        alert('Something went wrong. Please email us directly at hello@marketingtasksai.com');
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>
