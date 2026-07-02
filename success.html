@@ -118,7 +118,7 @@
                     </svg>
                 </div>
                 <h1>You're in! 🎉</h1>
-                <p class="subtitle">Your 5 free credits are ready. Now let's get you set up — it takes about 5 minutes.</p>
+                <p class="subtitle">Your 5 free credits are ready — <strong>they never expire</strong>. Install MarketingTasksAI from the official GitHub repo, then connect your account in the browser.</p>
 
                 <!-- Platform-aware install block -->
                 <div id="install-block" style="text-align:left;margin-bottom:24px;">
@@ -129,95 +129,110 @@
                   <!-- Claude Desktop -->
                   <div class="install-platform" id="install-claude_desktop" style="display:none;">
                     <div style="background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:0.85rem;color:#92400e;">
-                      ⚠️ <strong>Important:</strong> These instructions are for the <strong>Claude Desktop app</strong>, not claude.ai (the website). <a href="https://claude.ai/download" target="_blank" style="color:#92400e;font-weight:700;">Download Claude Desktop free →</a>
+                      ⚠️ <strong>Important:</strong> You need the <strong>Claude Desktop app</strong> (not the claude.ai website — they're different). <a href="https://claude.ai/download" target="_blank" style="color:#92400e;font-weight:700;">Download Claude Desktop free →</a>
                     </div>
                     <ol style="padding-left:20px;color:#4b5563;font-size:0.9rem;line-height:1.8;">
-                      <li>Check your email for your license key</li>
-                      <li>Download your skill package (button below)</li>
-                      <li>Open Claude Desktop → <strong>Settings → Developer → Edit Config</strong></li>
-                      <li>Paste the JSON snippet from the README inside the zip</li>
+                      <li>Open the <a href="/install.html" style="color:var(--accent);font-weight:600;">Install page</a></li>
+                      <li>Copy the official GitHub install prompt into Claude Desktop</li>
+                      <li>Approve the browser connection with your MarketingTasksAI account email</li>
                       <li>Restart Claude Desktop</li>
+                      <li>To confirm it worked, ask Claude: <strong>"Check my MarketingTasksAI balance"</strong></li>
                     </ol>
-                    <div class="code-block" style="margin-top:10px;">Config location:<br/>Mac: ~/Library/Application Support/Claude/claude_desktop_config.json<br/>Windows: %APPDATA%\Claude\claude_desktop_config.json</div>
                   </div>
 
                   <!-- Claude Code -->
                   <div class="install-platform" id="install-claude_code" style="display:none;">
                     <ol style="padding-left:20px;color:#4b5563;font-size:0.9rem;line-height:1.8;">
-                      <li>Check your email for your license key and download link</li>
-                      <li>Extract the zip — open the downloaded <code style="background:#f1f5f9;padding:1px 5px;border-radius:3px;">mcp</code> folder</li>
-                      <li>Run <code style="background:#f1f5f9;padding:1px 5px;border-radius:3px;">install.py</code> — it writes to <code style="background:#f1f5f9;padding:1px 5px;border-radius:3px;">~/.claude.json</code> automatically</li>
+                      <li>Open the <a href="/install.html" style="color:var(--accent);font-weight:600;">Install page</a></li>
+                      <li>Copy the official GitHub install prompt into Claude Code</li>
+                      <li>Approve the browser connection with your MarketingTasksAI account email</li>
                       <li>Start a new Claude Code session</li>
+                      <li>To confirm it worked, type: <strong>"Check my MarketingTasksAI balance"</strong></li>
                     </ol>
                     <p style="margin-top:10px;font-size:0.82rem;background:#ecfdf5;border-radius:6px;padding:10px 12px;color:#065f46;">
-                      🖥️ <strong>Also have Claude Desktop?</strong> The installer detects both and sets up each one in the same run.
+                      🖥️ <strong>Also have Claude Desktop?</strong> Paste the same GitHub install prompt into Claude Desktop to configure it too.
                     </p>
                   </div>
 
                   <!-- OpenClaw -->
                   <div class="install-platform" id="install-openclaw" style="display:none;">
                     <ol style="padding-left:20px;color:#4b5563;font-size:0.9rem;line-height:1.8;">
-                      <li>Check your email for your license key</li>
-                      <li>Open your OpenClaw chat and type:</li>
+                      <li>Open the <a href="/install.html" style="color:var(--accent);font-weight:600;">Install page</a></li>
+                      <li>Copy the official GitHub install prompt into OpenClaw</li>
+                      <li>Approve the browser connection with your MarketingTasksAI account email</li>
                     </ol>
-                    <div class="code-block">I just downloaded the MarketingTasksAI skill. Please find it in my Downloads folder and install it.</div>
-                    <p style="font-size:0.85rem;color:#6b7280;">OpenClaw will find and install it automatically. Then restart OpenClaw.</p>
+                    <p style="font-size:0.85rem;color:#6b7280;margin-top:8px;">The GitHub installer will configure the right package and connection flow. Then restart OpenClaw.</p>
+                    <p style="margin-top:8px;font-size:0.85rem;color:#6b7280;">To confirm it worked, ask: <strong>"Check my MarketingTasksAI balance"</strong></p>
                   </div>
 
                   <!-- Cursor -->
                   <div class="install-platform" id="install-cursor" style="display:none;">
                     <ol style="padding-left:20px;color:#4b5563;font-size:0.9rem;line-height:1.8;">
-                      <li>Check your email for your license key</li>
-                      <li>Download your skill package (button below)</li>
-                      <li>In Cursor: open <strong>Settings → MCP</strong></li>
-                      <li>Add the MCP server entry from the README in your zip</li>
+                      <li>Open the <a href="/install.html" style="color:var(--accent);font-weight:600;">Install page</a></li>
+                      <li>Copy the official GitHub install prompt into Cursor</li>
+                      <li>Approve the browser connection with your MarketingTasksAI account email</li>
                       <li>Restart Cursor</li>
+                      <li>To confirm it worked, ask: <strong>"Check my MarketingTasksAI balance"</strong></li>
                     </ol>
                   </div>
 
                   <!-- Windsurf -->
                   <div class="install-platform" id="install-windsurf" style="display:none;">
                     <ol style="padding-left:20px;color:#4b5563;font-size:0.9rem;line-height:1.8;">
-                      <li>Check your email for your license key</li>
-                      <li>Download your skill package (button below)</li>
-                      <li>In Windsurf: click the <strong>MCPs icon</strong> (top-right of Cascade panel)</li>
-                      <li>Click <strong>Add manually</strong> and paste the config from the README</li>
-                      <li>Config file location: <code style="background:#f1f5f9;padding:1px 5px;border-radius:3px;">~/.codeium/windsurf/mcp_config.json</code></li>
+                      <li>Open the <a href="/install.html" style="color:var(--accent);font-weight:600;">Install page</a></li>
+                      <li>Copy the official GitHub install prompt into Windsurf</li>
+                      <li>Approve the browser connection with your MarketingTasksAI account email</li>
                       <li>Restart Windsurf</li>
+                      <li>To confirm it worked, ask: <strong>"Check my MarketingTasksAI balance"</strong></li>
                     </ol>
                   </div>
 
                   <!-- Cline -->
                   <div class="install-platform" id="install-cline" style="display:none;">
                     <ol style="padding-left:20px;color:#4b5563;font-size:0.9rem;line-height:1.8;">
-                      <li>Check your email for your license key</li>
-                      <li>Download your skill package (button below)</li>
-                      <li>In VS Code: open the <strong>Cline sidebar → MCP Servers</strong></li>
-                      <li>Click <strong>Configure MCP Servers</strong> and add the entry from the README</li>
+                      <li>Open the <a href="/install.html" style="color:var(--accent);font-weight:600;">Install page</a></li>
+                      <li>Copy the official GitHub install prompt into Cline</li>
+                      <li>Approve the browser connection with your MarketingTasksAI account email</li>
                       <li>Reload VS Code</li>
+                      <li>To confirm it worked, ask: <strong>"Check my MarketingTasksAI balance"</strong></li>
                     </ol>
                   </div>
 
                   <!-- Other / fallback -->
                   <div class="install-platform" id="install-other" style="display:none;">
-                    <p style="color:#4b5563;font-size:0.9rem;margin-bottom:12px;">No problem — your package includes full setup instructions for all supported platforms. Check the README inside the zip.</p>
-                    <p style="font-size:0.85rem;color:#6b7280;">Supported: Claude Desktop &bull; OpenClaw &bull; Cursor &bull; Windsurf &bull; Cline</p>
+                    <p style="color:#4b5563;font-size:0.9rem;margin-bottom:12px;">Open the <a href="/install.html" style="color:var(--accent);font-weight:600;">Install page</a>, copy the official GitHub install prompt into your AI assistant, then approve the browser connection with your account email.</p>
+                    <p style="font-size:0.85rem;color:#6b7280;">Supported: Claude Desktop &bull; Claude Code &bull; OpenClaw &bull; Cursor &bull; Windsurf &bull; Cline</p>
                   </div>
 
                   <!-- Multi-platform note -->
                   <div id="multi-platform-note" style="display:none;margin-top:14px;padding:10px 14px;background:#f0f9ff;border-radius:6px;font-size:0.82rem;color:#0369a1;">
-                    🖥️ Using multiple platforms? The <a href="/getting-started.html" style="color:#0369a1;font-weight:600;">full setup guide</a> has instructions for all of them.
+                    🖥️ Using multiple platforms? Use the same GitHub install prompt from the <a href="/install.html" style="color:#0369a1;font-weight:600;">Install page</a> in each AI assistant.
                   </div>
 
                   <!-- Changed platforms link -->
                   <p style="margin-top:14px;font-size:0.8rem;color:#9ca3af;text-align:center;">
-                    Using a different AI tool? <a href="/getting-started.html" style="color:var(--accent);">Get updated install instructions →</a>
+                    Using a different AI tool? <a href="/install.html" style="color:var(--accent);">Get the official GitHub install prompt →</a>
                   </p>
 
                 </div>
 
-                <a href="/getting-started.html" class="download-btn" style="margin-bottom:16px;">View Full Setup Guide →</a>
-                <p style="color:#9ca3af;font-size:0.85rem;">Want more credits? <a href="/buy-credits.html" style="color:var(--accent);">Browse plans →</a></p>
+                <a href="/install.html" class="download-btn" style="margin-bottom:16px;">Install from GitHub →</a>
+
+                <!-- Permissions nudge -->
+                <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:14px 18px;margin-bottom:14px;text-align:left;">
+                  <p style="font-size:0.85rem;color:#0c4a6e;margin:0;">&#128274; <strong>Claude Desktop users:</strong> after installing, go to <strong>Settings &rarr; Connectors &rarr; Customize</strong> and set all four tools to <strong>Always allow</strong> — or Claude will skip your skills. <a href="/getting-started.html#permissions-step" style="color:#0369a1;font-weight:600;">See screenshots &rarr;</a></p>
+                </div>
+
+                <!-- First task CTA -->
+                <div style="background:#fef3c7;border:2px solid #f59e0b;border-radius:10px;padding:18px 20px;margin-bottom:16px;text-align:left;">
+                  <p style="font-weight:800;color:#92400e;font-size:0.9rem;margin-bottom:6px;">🎯 Your user trigger — paste this to get started</p>
+                  <p style="font-size:0.84rem;color:#78350f;margin-bottom:10px;">Once installed, open your AI client and type this <em>exactly</em>:</p>
+                  <div class="code-block" id="first-task-prompt" style="font-size:0.82rem;">Use MarketingTasksAI to show me what tasks are available</div>
+                  <p style="font-size:0.78rem;color:#92400e;margin-top:8px;">💡 <strong>Remember:</strong> Always start with <strong>"Use MarketingTasksAI to…"</strong> — that's how Claude knows to use your skills instead of answering from its own training.</p>
+                  <p style="font-size:0.78rem;color:#6b7280;margin-top:6px;">Browse the <a href="/task-library.html" style="color:var(--accent);">Task Library</a> to explore all available tasks.</p>
+                </div>
+
+                <p style="color:#9ca3af;font-size:0.82rem;text-align:center;">💳 Your 5 credits never expire &nbsp;·&nbsp; <a href="/buy-credits.html" style="color:var(--accent);">Buy more anytime →</a></p>
             </div>
 
             <!-- Content (purchase) -->
@@ -406,6 +421,15 @@ Windows: %APPDATA%\Claude\claude_desktop_config.json</div>
 
     const API_BASE = 'https://api.lawtasksai.com';
     const PRODUCT_ID = 'marketing';
+    function trackPurchaseIfConfigured(sessionId, data) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'purchase', {
+                    transaction_id: sessionId,
+                    product_id: PRODUCT_ID,
+                    credits: data.credits_purchased || 0
+                });
+            }
+        }
 
     async function loadPurchaseDetails() {
         const params = new URLSearchParams(window.location.search);
@@ -433,6 +457,7 @@ Windows: %APPDATA%\Claude\claude_desktop_config.json</div>
                 document.getElementById('total-credits').textContent = data.total_credits || '—';
                 document.getElementById('license-key').textContent = data.license_key || '—';
                 document.getElementById('download-btn').href = `${API_BASE}/download/loader?session_id=${sessionId}`;
+                trackPurchaseIfConfigured(sessionId, data);
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
                 return;
